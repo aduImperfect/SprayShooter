@@ -17,15 +17,23 @@ extends Node2D
 @export var pushUpSpeed : float = 350.0
 @export var strafeSpeed : float = 100.0
 
+@export var playerSacrificed : bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	assignedSprite = false
+	playerSacrificed = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if assignedSprite == false:
 		playerSprite = sceneGenNode.playerNode.get_child(0) as Sprite2D
 		assignedSprite = true
+		return
+
+	if playerSacrificed == true:
+		collisionMgr._reset_all()
+		playerSacrificed = false
 		return
 
 	_drop_char(_delta)
@@ -35,9 +43,9 @@ func _drop_char(_delta : float) -> void:
 	sceneGenNode.playerNode.position.y += dropSpeed * _delta
 
 func _input_char(_delta : float) -> void:
-	if Input.is_action_just_pressed("ui_space"):
+	if Input.is_action_pressed("ui_space"):
 		_animate_char() 
-
+ 
 	if Input.is_action_pressed("ui_up"):
 		sceneGenNode.playerNode.position.y -= pushUpSpeed * _delta
 
@@ -54,7 +62,7 @@ func _animate_char() -> void:
 	if playerSprite.frame < ((playerSprite.hframes * playerSprite.vframes) - 2):
 		playerSprite.frame += 1
 	else:
-		collisionMgr._reset_all()
+		playerSacrificed = true
 
 func _player_refill() -> void:
 	playerSprite.frame = 0
