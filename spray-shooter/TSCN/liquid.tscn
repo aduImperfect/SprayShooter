@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://rgdbhgyhrdtw"]
+
+[ext_resource type="Texture2D" uid="uid://cvnyk7fh1umys" path="res://Textures/LiquidGround.png" id="1_ads3a"]
+
+[node name="Liquid" type="Node2D" unique_id=1616197175]
+
+[node name="LiquidGround" type="Sprite2D" parent="." unique_id=1332698273]
+z_index = 2
+scale = Vector2(1.425, 0.75)
+texture = ExtResource("1_ads3a")
+hframes = 4
+vframes = 2

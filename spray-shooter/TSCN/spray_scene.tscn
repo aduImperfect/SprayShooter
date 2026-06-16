@@ -1,8 +1,46 @@
 [gd_scene format=3 uid="uid://ivb6jwl7qnht"]
 
 [ext_resource type="Script" uid="uid://bmqpwbccryhig" path="res://TSCN/scene_gen.gd" id="1_g21lx"]
+[ext_resource type="Script" uid="uid://wuatqeqx1031" path="res://TSCN/player.gd" id="2_dljfj"]
+[ext_resource type="Script" uid="uid://b717t5hyat5et" path="res://TSCN/liquid_movement.gd" id="3_wxn4l"]
+[ext_resource type="Script" uid="uid://cpdimssr1niq4" path="res://TSCN/collision_mgr.gd" id="4_6nrvr"]
+[ext_resource type="Script" uid="uid://ctk3iv71qem45" path="res://TSCN/brick_controls.gd" id="5_tymcw"]
+[ext_resource type="Script" uid="uid://f5q3txcvnk2q" path="res://TSCN/score_counter.gd" id="6_b7c2l"]
 
 [node name="SprayScene" type="Node2D" unique_id=1626939884]
 
 [node name="SceneGen" type="Node2D" parent="." unique_id=958259356]
 script = ExtResource("1_g21lx")
+
+[node name="PlayerControls" type="Node2D" parent="." unique_id=1086123444 node_paths=PackedStringArray("sceneGenNode", "liquidMovementNode", "collisionMgr")]
+script = ExtResource("2_dljfj")
+sceneGenNode = NodePath("../SceneGen")
+liquidMovementNode = NodePath("../LiquidMovement")
+collisionMgr = NodePath("../CollisionMgr")
+
+[node name="LiquidMovement" type="Node2D" parent="." unique_id=569471371 node_paths=PackedStringArray("sceneGenNode")]
+script = ExtResource("3_wxn4l")
+sceneGenNode = NodePath("../SceneGen")
+
+[node name="CollisionMgr" type="Node2D" parent="." unique_id=1243442500 node_paths=PackedStringArray("sceneGenNode", "playerControlsNode", "liquidMovementNode", "brickControlsNode", "scoreCounterTextNode")]
+script = ExtResource("4_6nrvr")
+sceneGenNode = NodePath("../SceneGen")
+playerControlsNode = NodePath("../PlayerControls")
+liquidMovementNode = NodePath("../LiquidMovement")
+brickControlsNode = NodePath("../BrickControls")
+scoreCounterTextNode = NodePath("../ScoreCounter")
+
+[node name="BrickControls" type="Node2D" parent="." unique_id=800758737 node_paths=PackedStringArray("sceneGenNode")]
+script = ExtResource("5_tymcw")
+sceneGenNode = NodePath("../SceneGen")
+
+[node name="ScoreCounter" type="TextEdit" parent="." unique_id=959550396 node_paths=PackedStringArray("sceneGenNode", "collisionMgrNode")]
+z_index = 10
+custom_minimum_size = Vector2(40, 100)
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 30
+text = "0"
+script = ExtResource("6_b7c2l")
+sceneGenNode = NodePath("../SceneGen")
+collisionMgrNode = NodePath("../CollisionMgr")
