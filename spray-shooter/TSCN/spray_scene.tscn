@@ -1,3 +1,8 @@
 [gd_scene format=3 uid="uid://ivb6jwl7qnht"]
 
+[ext_resource type="Script" uid="uid://bmqpwbccryhig" path="res://TSCN/scene_gen.gd" id="1_g21lx"]
+
 [node name="SprayScene" type="Node2D" unique_id=1626939884]
+
+[node name="SceneGen" type="Node2D" parent="." unique_id=958259356]
+script = ExtResource("1_g21lx")
